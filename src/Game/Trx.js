@@ -55,33 +55,33 @@ const images = [
   {
     id: 1,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
-    subtitle: "1Min",
+    altSrc: "games/assets/time_a-07f92409.png",
+    subtitle: "K3 Lottery 1Min",
   },
   {
     id: 2,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
-    subtitle: "3Min",
+    altSrc: "games/assets/time_a-07f92409.png",
+    subtitle: "K3 Lottery 3Min",
   },
   {
     id: 3,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
-    subtitle: "5Min",
+    altSrc: "games/assets/time_a-07f92409.png",
+    subtitle: "K3 Lottery 5Min",
   },
   {
     id: 4,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
-    subtitle: "10Min",
+    altSrc: "games/assets/time_a-07f92409.png",
+    subtitle: "K3 Lottery 10Min",
   },
 ];
 
 const TabPanel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && <Box p={1}>{children}</Box>}
     </div>
   );
 };
@@ -90,25 +90,30 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   "& .MuiButtonGroup-grouped": {
     border: "none",
     "&:not(:last-of-type)": {
-      borderRight: "1px solid rgba(255, 255, 255, 0.2)",
+      borderRight: "1px solid #117B15E",
     },
   },
 }));
 
 const StyledButton = styled(Button)(({ theme, active }) => ({
-  backgroundColor: active ? "#1976d2" : "rgb(34,39,91)",
-  color: "white",
-  fontSize: "0.875rem",
-  padding: "3px 8px", // Reduced padding
-  "&:hover": {
-    backgroundColor: active ? "#1565c0" : "rgb(34,39,91)",
+  backgroundColor: active ? '#17B15E' : '#242424',
+  color: 'white',
+  fontSize: '0.875rem',
+  padding: '3px 8px', // Reduced padding
+  '&:hover': {
+    backgroundColor: '#17B15E'
   },
-  "&.random": {
-    backgroundColor: "rgb(34,39,91)",
-    paddingLeft: "10px",
-    paddingRight: "10px",
-    "&:hover": {
-      backgroundColor: "rgb(34,39,91)",
+  '&.random': {
+    backgroundColor: '#117B15E',
+    border: "1px solid #D23838",
+    borderRadius:"10px",
+   color:"#D23838",
+    paddingLeft: '10px', // Reduced padding
+    paddingRight: '10px', 
+    gap:2,// Reduced padding
+    '&:hover': {
+      backgroundColor: '#D23838',
+      color:"white"
     },
   },
 }));
@@ -134,9 +139,9 @@ const LotteryAppt = () => {
   const [remainingTime, setRemainingTime] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
-  const [betAmount, setBetAmount] = useState(0);
+  const [betAmount, setBetAmount] = useState(1);
   const [multiplier, setMultiplier] = useState(1);
-  const [totalBet, setTotalBet] = useState(0);
+  const [totalBet, setTotalBet] = useState(1);
   const [betPlaced, setBetPlaced] = useState(false);
   const [betPeriodId, setBetPeriodId] = useState(null);
   const [open, setOpen] = useState(false);
@@ -383,9 +388,9 @@ const LotteryAppt = () => {
 
   const handleCancelBet = () => {
     setSelectedItem("");
-    setBetAmount(0);
+    setBetAmount(1);
     setMultiplier(1);
-    setTotalBet(0);
+    setTotalBet(1);
     handleCloseDrawer();
   };
   const handleCloseSnackbar = (event, reason) => {
@@ -570,217 +575,219 @@ const LotteryAppt = () => {
 
   return (
     <div>
-      <Mobile>
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{
-            position: "sticky",
-            top: 0,
-            zIndex: 1000,
-            backgroundColor: "#2b3270",
-            padding: "8px 16px",
-            color: "white",
-          }}
-        >
-          <Grid item xs={6} textAlign="left">
-            <IconButton color="inherit" onClick={navigateToPage}>
-              <ArrowBackIcon />
-            </IconButton>
-          </Grid>
-          <Grid item xs={6} textAlign="right">
-            <IconButton color="inherit">
-              <SupportAgentIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              onClick={() => setIsSoundOn(!isSoundOn)}
-            >
-              {isSoundOn ? <MusicNoteIcon /> : <MusicOffIcon />}
-            </IconButton>
-          </Grid>
+    <Mobile>
+      <div style={{backgroundColor:"#242424"}}>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: "#3F3F3F",
+          padding: "8px 16px",
+          color: "white",
+        }}
+      >
+        <Grid item xs={6} textAlign="left">
+          <IconButton color="inherit" onClick={navigateToPage}>
+            <ArrowBackIcon />
+          </IconButton>
         </Grid>
+        <Grid item xs={6} textAlign="right">
+          <IconButton color="inherit">
+            <SupportAgentIcon />
+          </IconButton>
+       
+<IconButton color="inherit" onClick={() => setIsSoundOn(!isSoundOn)}>
+{isSoundOn ? <MusicNoteIcon /> : <MusicOffIcon />}
+</IconButton>
+        </Grid>
+      </Grid>
 
+      <Grid
+        container
+        direction="column"
+        sx={{
+          height: "300px",
+          backgroundColor: "#333332",
+          borderRadius: "0 0 70px 70px",
+          textAlign: "center",
+        }}
+      >
         <Grid
-          container
-          direction="column"
-          sx={{
-            height: "300px",
-            backgroundColor: "#2b3270",
-            borderRadius: "0 0 70px 70px",
-            textAlign: "center",
-          }}
-        >
+sx={{
+  backgroundImage: `url("games/assets/walletbg-dcbd4124.png")`,
+  backgroundSize: "cover",
+  backgroundColor:"#4D4D4C",
+  backgroundPosition: "center",
+  margin: "0 20px 20px 20px",
+  borderRadius: "30px",
+  padding: "10px",
+  marginTop: "10px",
+}}
+>
+         
           <Grid
-            sx={{
-              backgroundColor: "#384992",
-              margin: "0 20px 20px 20px",
-              borderRadius: "30px",
-              padding: "10px",
-              marginTop: "10px",
-            }}
-          >
-            <Grid
-              sm={12}
-              item
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: "bold", color: "#f0f1f5" }}
-              >
-                {user ? user.walletAmount : " Loading"}
-              </Typography>
-              <IconButton sx={{ color: "#f0f1f5" }}>
-                <Refresh />
-              </IconButton>
-            </Grid>
-
-            <Grid
-              sm={12}
-              item
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <AccountBalanceWallet
-                sx={{ marginRight: "10px", color: "RGB(71,129,255)" }}
-              />
-              <Typography variant="subtitle2" sx={{ color: "white" }}>
-                Wallet Balance
-              </Typography>
-            </Grid>
-            <Grid
-              sm={12}
-              mt={3}
-              item
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                variant="contained"
-                onClick={navigateToPage2}
-                fullWidth
-                sx={{
-                  marginLeft: "10px",
-                  backgroundColor: "#d23838",
-                  borderRadius: "50px",
-                }}
-              >
-                Withdraw
-              </Button>
-              <Button
-                variant="contained"
-                onClick={navigateToPage1}
-                fullWidth
-                sx={{
-                  marginLeft: "10px",
-                  backgroundColor: "#16b15e",
-                  borderRadius: "50px",
-                }}
-              >
-                Deposit
-              </Button>
-            </Grid>
-          </Grid>
-
-          <Grid
+            sm={12}
             item
             sx={{
-              backgroundColor: "#2b3270",
-              margin: "0 20px 20px 20px",
-              borderRadius: "3px",
-              padding: "10px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "center",
+              color:"white"
             }}
           >
-            <IconButton>
-              <VolumeUp sx={{ color: "RGB(71,129,255)" }} />
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {user ? user.walletAmount : " Loading"}
+            </Typography>
+            <IconButton sx={{color:"white"}}>
+              <Refresh />
             </IconButton>
-            <CSSTransition
-              in={inProp}
-              timeout={500}
-              classNames="message"
-              unmountOnExit
+          </Grid>
+
+          <Grid
+            sm={12}
+            item
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color:"white"
+            }}
+          >
+            <AccountBalanceWallet
+              sx={{ marginRight: "10px", color: "#D9AC4F" }}
+            />
+            <Typography variant="subtitle2">Wallet Balance</Typography>
+          </Grid>
+          <Grid
+            sm={12}
+            mt={3}
+            item
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={navigateToPage2}
+              fullWidth
+              sx={{
+                marginLeft: "10px",
+                color: "white",
+                backgroundColor:"#D23838",
+                borderColor: "#D23838",
+                borderRadius: "50px",
+              }}
             >
-              <Typography variant="caption" sx={{ color: "#dfe1eb" }}>
-                {textArray[index]}
-              </Typography>
-            </CSSTransition>
+              Withdraw
+            </Button>
             <Button
               variant="contained"
-              size="small"
+              onClick={navigateToPage1}
+              fullWidth
               sx={{
-                backgroundImage: "linear-gradient(to right,#2ba7f3, #2a7cf2)",
-                paddingRight: "12px",
-                width: "90px",
-                minWidth: "90px",
+                marginLeft: "10px",
+                backgroundColor: "#17B15E",
+                borderRadius: "50px",
               }}
-              startIcon={<WhatshotIcon />}
             >
-              Details
+              Deposit
             </Button>
           </Grid>
         </Grid>
 
         <Grid
-          container
-          spacing={1}
+          item
           sx={{
-            marginLeft: "auto",
-            marginRight: "auto",
-            maxWidth: "95%",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            marginTop: "-50px",
-            backgroundColor: "#4469cb",
-            borderRadius: "30px",
+            backgroundColor: "#333332",
+            margin: "0 20px 20px 20px",
+            borderRadius: "3px",
+            padding: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          {images.map((image) => (
-            <Grid
-              item
-              xs={3}
-              key={image.id}
-              onClick={() => handleClick(image.id)}
-              style={{
-                cursor: "pointer",
-                border:
-                  activeId === image.id
-                    ? '1px solid  "linear-gradient(to right,#2ba7f3, #2a7cf2)"'
-                    : "#e8edf5",
-                backgroundColor:
-                  activeId === image.id ? "RGB(168,223,247)" : "transparent",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center", // Align items horizontally
-                justifyContent: "center", // Align items vertically
-              }}
-            >
-              <img
-                src={activeId === image.id ? image.altSrc : image.src}
-                alt={image.subtitle}
-                style={{ width: "80%" }}
-              />
-              <Typography variant="caption" sx={{ color: "#ffffff" }}>
-                {image.subtitle}
-              </Typography>
-            </Grid>
-          ))}
+          <IconButton>
+            <VolumeUp sx={{ color: "#DEBA6D" }} />
+          </IconButton>
+          <CSSTransition
+            in={inProp}
+            timeout={500}
+            classNames="message"
+            unmountOnExit
+          >
+            <Typography variant="caption" sx={{ color: "white" }}>
+              {textArray[index]}
+            </Typography>
+          </CSSTransition>
+
+          <Button
+            variant="contained"
+            size="small"
+            sx={{
+              backgroundColor: "#DEBA6D",
+              borderRadius: "50px",
+              fontSize: "9px",
+              paddingLeft: "12px",
+              paddingRight: "12px",
+              color:"#221F2E"
+            }}
+            startIcon={<WhatshotIcon />}
+          >
+            Details
+          </Button>
         </Grid>
-        <Grid
+      </Grid>
+
+      <Grid
+        container
+        spacing={1}
+        sx={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          maxWidth: "95%",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          marginTop: "-50px",
+          backgroundColor: "#4D4D4C",
+          borderRadius: "30px",
+          color:"white"
+        }}
+      >
+        {images.map((image) => (
+          <Grid
+            item
+            xs={3}
+            key={image.id}
+            onClick={() => handleClick(image.id)}
+            style={{
+              cursor: "pointer",
+              border:
+                activeId === image.id ? "1px solid #DAB465" : "none",
+              backgroundColor:
+                activeId === image.id ? "#DAB465" : "transparent",
+              borderRadius: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center", // Align items horizontally
+              justifyContent: "center", // Align items vertically
+            }}
+          >
+            <img
+              src={activeId === image.id ? image.altSrc : image.src}
+              alt={image.subtitle}
+              style={{ width: "80%" }}
+            />
+            <Typography variant="caption">{image.subtitle}</Typography>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid
           mt={2}
           sx={{
             display: "flex",
@@ -792,7 +799,7 @@ const LotteryAppt = () => {
             marginLeft: "auto",
             marginRight: "auto",
             maxWidth: "95%",
-            backgroundImage: 'url("games/assets/trxbg-c22.png")',
+            backgroundImage: 'url("games/assets/trxbg-6da68385.png")',
             backgroundSize: "100% 100%", // Force image to fit container's size
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -815,8 +822,8 @@ const LotteryAppt = () => {
                 maxWidth: "calc(20% - 10px)", // Adjust the width as per your design
                 height: "25px",
                 backgroundColor: "transparent",
-                color: "white",
-                border: "1px solid white",
+                color: "#9F6618",
+                border: "1px solid #9F6618",
                 borderRadius: "8px",
                 display: "flex",
                 alignItems: "center",
@@ -834,9 +841,9 @@ const LotteryAppt = () => {
                 flex: "0 0 auto", // Fixed width without shrinking
                 width: "80px",
                 height: "25px",
-                backgroundColor: "transparent",
-                color: "white",
-                border: "1px solid white",
+                backgroundColor: "#333332",
+                color: "#9F6618",
+                border: "1px solid #9F6618",
                 borderRadius: "8px",
                 display: "flex",
                 alignItems: "center",
@@ -856,9 +863,9 @@ const LotteryAppt = () => {
                 flex: "0 0 auto", // Fixed width without shrinking
                 width: "120px",
                 height: "25px",
-                backgroundColor: "transparent",
-                color: "white",
-                border: "1px solid white",
+                backgroundColor: "#333332",
+                color: "#9F6618",
+                border: "1px solid #9F6618",
                 borderRadius: "8px",
                 display: "flex",
                 alignItems: "center",
@@ -893,14 +900,14 @@ const LotteryAppt = () => {
                 marginBottom: "50px",
               }}
             >
-              <Typography variant="h6" sx={{ color: "white" }}>
+              <Typography variant="h6" sx={{ color: "#A25C06" }}>
                 {periodId ? periodId.toString().slice(0, -2) : ""}
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography
                   variant="subtitle1"
                   sx={{
-                    color: "white",
+                    color: "#A25C06",
                     fontWeight: "bold",
                     marginRight: "15px",
                     fontSize: "15px",
@@ -918,12 +925,12 @@ const LotteryAppt = () => {
                       width: "16px",
                       height: "22px",
                       backgroundColor: "transparent",
-                      color: "white",
+                      color: "#A25C06",
                       textAlign: "center",
                       lineHeight: "20px",
                       margin: "0 2px",
                       borderRadius: "4px",
-                      border: "1px solid white",
+                      border: "1px solid #A25C06",
                     }}
                   >
                     {minutes[0]}
@@ -934,12 +941,12 @@ const LotteryAppt = () => {
                       width: "16px",
                       height: "22px",
                       backgroundColor: "transparent",
-                      color: "white",
+                      color: "#A25C06",
                       textAlign: "center",
                       lineHeight: "20px",
                       margin: "0 2px",
                       borderRadius: "4px",
-                      border: "1px solid white",
+                      border: "1px solid #A25C06",
                     }}
                   >
                     {minutes[1]}
@@ -950,12 +957,12 @@ const LotteryAppt = () => {
                       width: "16px",
                       height: "22px",
                       backgroundColor: "transparent",
-                      color: "white",
+                      color: "#A25C06",
                       textAlign: "center",
                       lineHeight: "20px",
                       margin: "0 2px",
                       borderRadius: "4px",
-                      border: "1px solid white",
+                      border: "1px solid #A25C06",
                     }}
                   >
                     :
@@ -966,12 +973,12 @@ const LotteryAppt = () => {
                       width: "16px",
                       height: "22px",
                       backgroundColor: "transparent",
-                      color: "white",
+                      color: "#A25C06",
                       textAlign: "center",
                       lineHeight: "20px",
                       margin: "0 2px",
                       borderRadius: "4px",
-                      border: "1px solid white",
+                      border: "1px solid #A25C06",
                     }}
                   >
                     {seconds[0]}
@@ -982,12 +989,12 @@ const LotteryAppt = () => {
                       width: "16px",
                       height: "22px",
                       backgroundColor: "transparent",
-                      color: "white",
+                      color: "#A25C06",
                       textAlign: "center",
                       lineHeight: "20px",
                       margin: "0 2px",
                       borderRadius: "4px",
-                      border: "1px solid white",
+                      border: "1px solid #A25C06",
                     }}
                   >
                     {seconds[1]}
@@ -1025,7 +1032,7 @@ const LotteryAppt = () => {
           mt={2}
           spacing={2}
           sx={{
-            backgroundColor: "#2b3270",
+            backgroundColor: "#333332",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             marginLeft: "auto",
             marginRight: "auto",
@@ -1083,7 +1090,7 @@ const LotteryAppt = () => {
             container
             mt={2}
             sx={{
-              backgroundColor: "#22275b",
+              backgroundColor: "#242424",
               marginLeft: "auto",
               marginRight: "auto",
               maxWidth: "95%",
@@ -1516,22 +1523,22 @@ const LotteryAppt = () => {
           aria-describedby="alert-dialog-description"
           PaperProps={{
             style: {
-              width: "400px", // Set this to the desired size of your square
-              height: "400px", // Set this to the same value as width
+              width: "350px", // Set this to the desired size of your square
+              height: "250px", // Set this to the same value as width
               backgroundColor: "rgba(0, 0, 0, 0.5)", // This sets the opacity of the dialog box background
-              overflow: "hidden", // This removes the scrollbars
+              overflow: "hidden",
+              borderRadius:"40px" // This removes the scrollbars
             },
           }}
         >
-          <DialogTitle id="alert-dialog-title">{"Countdown"}</DialogTitle>
           <DialogContent>
             <DialogContentText
               id="alert-dialog-description"
               style={{
                 textAlign: "center",
-                fontSize: "150px", // Adjust this value to increase or decrease the font size
+                fontSize: "120px",
                 fontWeight: "bold",
-                color: " RGB(71,129,255)", // This makes the text bold
+                color: "#D9AC4F",
               }}
             >
               {remainingTime ? remainingTime.split(":")[1] : ""}
@@ -1539,55 +1546,52 @@ const LotteryAppt = () => {
           </DialogContent>
         </Dialog>
 
-        <Grid mt={2} sx={{ marginBottom: "100px" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="transparent"
-            style={{
-              marginLeft: "20px",
-            }}
-          >
-            <Tab
-              label="Game History"
-              style={
-                value === 0
-                  ? {
-                      backgroundImage:
-                        "linear-gradient(to right,#2ba7f3, #2a7cf2)",
-                      color: "white",
-                      borderRadius: "20px",
-                    }
-                  : { color: "#D9D9D9" }
-              }
-            />
-            <Tab
-              label="Chart"
-              style={
-                value === 1
-                  ? {
-                      backgroundImage:
-                        "linear-gradient(to right,#2ba7f3, #2a7cf2)",
-                      color: "white",
-                      borderRadius: "20px",
-                    }
-                  : { color: "#D9D9D9" }
-              }
-            />
-            <Tab
-              label="My History"
-              style={
-                value === 2
-                  ? {
-                      backgroundImage:
-                        "linear-gradient(to right,#2ba7f3, #2a7cf2)",
-                      color: "white",
-                      borderRadius: "20px",
-                    }
-                  : { color: "#D9D9D9" }
-              }
-            />
-          </Tabs>
+        <Grid mt={2}>
+        <Tabs
+    value={value}
+    onChange={handleChange}
+    indicatorColor="transparent"
+    style={{
+      marginLeft: "20px",
+    }}
+  >
+    <Tab
+      label="Game History"
+      style={
+        value === 0
+          ? {
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
+              borderRadius: "20px",
+            }
+          : { color: "##A8A5A1",backgroundColor:"#333332" }
+      }
+    />
+    <Tab
+      label="Chart"
+      style={
+        value === 1
+          ? {
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
+              borderRadius: "20px",
+            }
+          : { color: "#A8A5A1",backgroundColor:"#333332" }
+      }
+    />
+    <Tab
+      label="My History"
+      style={
+        value === 2
+          ? {
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
+              borderRadius: "20px",
+            }
+          : { color: "#A8A5A1",backgroundColor:"#333332" }
+      }
+    />
+  </Tabs>
           <TabPanel value={value} index={0}>
             <CustomTable data={rows} />
           </TabPanel>
@@ -1604,15 +1608,16 @@ const LotteryAppt = () => {
                     : 0
                 )
                 .map((bet, index) => (
-                  <Accordion sx={{ backgroundColor: "rgb(42,50,112)" }}>
+                  <Accordion sx={{backgroundColor:"#333332"}}>
                     <AccordionSummary
                       aria-controls="panel1a-content"
                       id="panel1a-header"
+                      
                     >
                       <Grid
                         container
                         style={{
-                          backgroundColor: "rgb(34,39,91)",
+                          backgroundColor: "#242424",
                           marginTop: "10px",
                           padding: "18px",
                           width: "350px",
@@ -1933,6 +1938,7 @@ const LotteryAppt = () => {
             </div>
           </div>
         </>
+        </div>
       </Mobile>
     </div>
   );

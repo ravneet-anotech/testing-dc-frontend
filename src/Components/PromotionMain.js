@@ -221,7 +221,7 @@ const [ commission , setCommission] = useState(0);
           height="calc(var(--vh, 1vh) * 100)"
           position="relative"
         >
-          <Box flexGrow={1} sx={{backgroundColor:"rgb(55,74,148)"}}>
+          <Box flexGrow={1} sx={{backgroundColor:"#242424"}}>
 
 
             <Grid
@@ -232,7 +232,7 @@ const [ commission , setCommission] = useState(0);
                 position: 'sticky',
                 top: 0,
                 zIndex: 1000,
-                backgroundColor: 'rgb(42,50,112)',
+                backgroundColor: '#3F3F3F',
                 padding: '8px 16px',
                 color: 'white'
               }}
@@ -257,33 +257,35 @@ const [ commission , setCommission] = useState(0);
                 borderRadius:"10px"}}>
       {/* First Grid */}
       
-      <Grid item xs={12} sx={{borderRadius: '10px 10px 0 0',   backgroundColor: 'rgb(42,50,112)', padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <Typography variant="caption" sx={{ color:"white"}} align="center"> {`\u20B9${totalCommission ? totalCommission.totalCommission : " Loading"}`}
+      <Grid item xs={12} sx={{borderRadius: '10px 10px 0 0',   backgroundImage: 'url("games/assets/wingoissue-ba51f474.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center", backgroundColor: '#EFD7A4', padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <Typography variant="caption" sx={{ color:'white'}} align="center"> {`\u20B9${totalCommission ? totalCommission.totalCommission : " Loading"}`}
 </Typography>      
 
-   <Typography variant="caption" color={'white'} align="center">Total commission</Typography>
-        <Typography variant="caption" color={'white'} align="center">Upgrade the level to increase commission income</Typography>
+   <Typography variant="caption" color="#D9AC4F" backgroundColor="#333332" align="center" paddingLeft="10px" paddingRight="10px" borderRadius="25px">Total commission</Typography>
+        <Typography variant="caption" color={'#8F5206'} align="center">Upgrade the level to increase commission income</Typography>
       </Grid>
 
       {/* Second Grid */}
-      <Grid item xs={12} sx={{borderRadius: '8px 8px 0 0', borderTopLeftRadius: '8px', backgroundColor:"rgb(55,72,146)", borderTopRightRadius: '8px', borderBottom: '1px solid #ccc', padding: '10px' }}>
+      <Grid item xs={12} sx={{borderRadius: '8px 8px 0 0', borderTopLeftRadius: '8px', backgroundColor:"#3A3947", borderTopRightRadius: '8px', borderBottom: '1px solid #ccc', padding: '10px' }}>
         <Grid container justifyContent="space-evenly">
           <Grid item >
             <Box display="flex" alignItems="center">
-              <PeopleIcon style={{ color: 'rgb(41,166,242)' }}/>
+              <PeopleIcon style={{ color: '#D9AC4F' }}/>
               <Typography variant="body1" sx={{color:"white"}} align="center">Direct subordinates</Typography>
             </Box>
           </Grid>
           <Grid item>
             <Box display="flex" alignItems="right">
-              <PeopleIcon style={{ color: 'rgb(41,166,242)' }}  />
+              <PeopleIcon style={{ color: '#D9AC4F' }}  />
               <Typography variant="body1" sx={{color:"white"}} align="center">Team subordinates</Typography>
             </Box>
           </Grid>
         </Grid>
       </Grid>
       {/* Third Grid */}
-      <Grid item container xs={12} spacing={0} sx={{ padding: '10px' }}>
+      <Grid item container xs={12} spacing={0} sx={{ padding: '10px',backgroundColor:"#333332" }}>
       <React.Fragment>
   <Grid item xs={6}>
     <Typography variant="caption" align="center" sx={{color:"white"}}>{dataItems[0].heading}</Typography>
@@ -338,14 +340,15 @@ const [ commission , setCommission] = useState(0);
     <Button
     onClick={handleCopyLink}
       variant="contained"
-      color="primary"
+      
       sx={{
         width: '90%',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: '20px', // Adjust as needed
         marginBottom: '20px', 
-        backgroundColor: 'rgb(41,166,242)',
+        backgroundColor: '#EFD58C',
+      color:"#B46C06",
         borderRadius:"20px"// Adjust as needed
       }}
     >
@@ -353,7 +356,7 @@ const [ commission , setCommission] = useState(0);
     </Button>
     <div>
       {options.map((option, index) => (
-        <MenuItem key={index} onClick={() => handleOptionClick(option)}>
+        <MenuItem key={index} onClick={() => handleOptionClick(option)} sx={{backgroundColor:"#333332",padding:3,margin:"10px",borderRadius:"10px"}}>
           <ListItemIcon>
             <img src={option.image} alt="icon" style={{ width: 24, height: 24, marginRight: 8 }} />
           </ListItemIcon>
@@ -366,7 +369,7 @@ const [ commission , setCommission] = useState(0);
     </div>
 
 
-    <Grid mt={4} sx={{ backgroundColor: 'rgb(55,73,148)', borderRadius: '8px' ,   marginLeft: 'auto',
+    <Grid mt={4} sx={{ backgroundColor: '#333332', borderRadius: '8px' ,   marginLeft: 'auto',
                 marginRight: 'auto', width:"95%", boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', marginBottom:"150px"  }}>
                    {/* New Grid */}
   <Grid container spacing={2}>
@@ -379,13 +382,13 @@ const [ commission , setCommission] = useState(0);
         <Grid item xs={6}>
         <Typography variant="caption" sx={{color:"white"}}>{commission.commissionLast7Days}</Typography>
 
-          <Typography variant="subtitle1" sx={{color:"white"}}>{data[0].heading}</Typography>
+          <Typography variant="subtitle1" sx={{color:"#9DA5A1"}}>{data[0].heading}</Typography>
          
         </Grid>
         <Grid item xs={6}>
         <Typography variant="caption" sx={{color:"white"}}>{commission.totalCommissionTillNow}</Typography>
 
-          <Typography variant="subtitle1" sx={{color:"white"}}>{data[1].heading}</Typography>
+          <Typography variant="subtitle1" sx={{color:"#9DA5A1"}}>{data[1].heading}</Typography>
         
         </Grid>
       </Grid>
@@ -393,12 +396,12 @@ const [ commission , setCommission] = useState(0);
       <Grid container spacing={2}>
         <Grid item xs={6}>
         <Typography variant="caption" sx={{color:"white"}}>{commission.totalDirectSubordinates}</Typography>
-          <Typography variant="subtitle1" sx={{color:"white"}}>{data[2].heading}</Typography>
+          <Typography variant="subtitle1" sx={{color:"#9DA5A1"}}>{data[2].heading}</Typography>
          
         </Grid>
         <Grid item xs={6}>
         <Typography variant="caption" sx={{color:"white"}}>{commission.totalTeamSubordinates}</Typography>
-          <Typography variant="subtitle1" sx={{color:"white"}}>{data[3].heading}</Typography>
+          <Typography variant="subtitle1" sx={{color:"#9DA5A1"}}>{data[3].heading}</Typography>
          
         </Grid>
       </Grid>

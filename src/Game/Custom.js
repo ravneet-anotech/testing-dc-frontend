@@ -28,22 +28,22 @@ const CustomTable = ({ data }) => {
           xs={2.4}
           key={column.id}
           sx={{
-            backgroundColor: "RGB(71,129,255)",
-            color: "white",
-            padding: "8px ",
-            fontWeight: "bold",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "0.8rem",
-          }}
+            backgroundColor: '#3A3947',
+            color: 'white', 
+            padding: '8px ', 
+            fontWeight: 'bold', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            fontSize: '0.8rem'           }}
         >
           {column.label}
         </Grid>
       ))}
-      <Divider sx={{ width: "100%", bgcolor: "#384992" }} />
+      <Divider />
+      <Grid container direction="row"  justifyContent="space-evenly" backgroundColor="#333332">
       {paginatedData.map((row) => (
-        <React.Fragment key={row._id}>
+        <React.Fragment key={row._id} marginBlock={2}>
           <Grid
             item
             xs={2.4}
@@ -56,7 +56,7 @@ const CustomTable = ({ data }) => {
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
-              backgroundColor: "#2b3270",
+              
             }}
           >
             {row.periodId.slice(0, 3) + "**" + row.periodId.slice(-4)}
@@ -73,7 +73,7 @@ const CustomTable = ({ data }) => {
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
-              backgroundColor: "#2b3270",
+             
             }}
           >
             {row.trxBlockAddress}
@@ -90,7 +90,7 @@ const CustomTable = ({ data }) => {
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
-              backgroundColor: "#2b3270",
+             
             }}
           >
             {row.blockTime}
@@ -107,7 +107,7 @@ const CustomTable = ({ data }) => {
               fontSize: "10px",
               fontWeight: "bold",
               color: "white",
-              backgroundColor: "#2b3270",
+             
             }}
           >
             {"** " + row.hash.slice(-4)}{" "}
@@ -120,7 +120,7 @@ const CustomTable = ({ data }) => {
               borderBottom: "1px solid #ccc",
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#2b3270",
+             
               justifyContent: "center",
             }}
           >
@@ -177,13 +177,14 @@ const CustomTable = ({ data }) => {
                 row.sizeOutcome.charAt(0).toUpperCase() === "B"
                   ? "#dd9138"
                   : "#5088d3",
-              backgroundColor: "#2b3270",
+             
             }}
           >
             {row.sizeOutcome.charAt(0).toUpperCase()}
           </Grid>
         </React.Fragment>
       ))}
+      </Grid>
       <Grid
         item
         xs={12}
@@ -194,12 +195,30 @@ const CustomTable = ({ data }) => {
           page={page}
           onChange={handleChangePage}
           sx={{
-            "& .MuiPaginationItem-root": {
-              color: "white",
+            '& .MuiPaginationItem-root': {
+              color: '#A8A5A1',
             },
-            "& .MuiPaginationItem-page.Mui-selected": {
-              backgroundColor: "white",
-              color: "black",
+            '& .MuiPaginationItem-page.Mui-selected': {
+            
+              color: '#A8A5A1',
+            },
+            '& .MuiPaginationItem-ellipsis': {
+              color: '#D9AC4F',
+              backgroundColor: '##D9AC4F',
+            },
+            '& .MuiPaginationItem-previousNext': {
+              backgroundColor: '#D9AC4F',
+              color: '#8F5206',
+              padding: '3px',
+              width: 'auto',  // Ensure it doesn't stretch
+              height: 'auto', // Ensure it doesn't stretch
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+            '& .MuiPaginationItem-icon': {
+              width: '70px', // Adjust the size to make it square
+              height: '40px', // Adjust the size to make it square
             },
           }}
         />

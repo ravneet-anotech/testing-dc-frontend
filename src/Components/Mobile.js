@@ -35,7 +35,7 @@ const Mobile = ({ children }) => {
         }}
       >
        <Box
-  bgcolor="rgb(34,39,91)"
+  bgcolor="#242424"
   textAlign="center"
   minHeight="100%"
   maxHeight="100vh"

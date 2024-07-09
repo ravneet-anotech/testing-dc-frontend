@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import Mobile from "../Components/Mobile";
 import { Typography, Grid, Box } from "@mui/material";
+import Play from "./Play";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
@@ -30,7 +31,6 @@ import {ButtonGroup,styled } from '@mui/material';
 import {domain} from '../Components/config'
 import {wssdomain} from '../Components/config'
 import MusicOffIcon from '@material-ui/icons/MusicOff';
-import Play from "./Play";
 
 const countdownSound = new Audio("/assets/sound.mp3");
 countdownSound.loop = true;
@@ -39,25 +39,25 @@ const images = [
   {
     id: 1,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
+    altSrc: "games/assets/time_a-07f92409.png",
     subtitle: "1Min",
   },
   {
     id: 2,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
+    altSrc: "games/assets/time_a-07f92409.png",
     subtitle: "3Min",
   },
   {
     id: 3,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
+    altSrc: "games/assets/time_a-07f92409.png",
     subtitle: "5Min",
   },
   {
     id: 4,
     src: "games/assets/time-5d4e96a3.png",
-    altSrc: "games/assets/time_a-afd768a9.png",
+    altSrc: "games/assets/time_a-07f92409.png",
     subtitle: "10Min",
   },
 ];
@@ -66,7 +66,7 @@ const images = [
 const TabPanel = ({ children, value, index }) => {
   return (
     <div hidden={value !== index}>
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && <Box p={1}>{children}</Box>}
     </div>
   );
 };
@@ -75,26 +75,29 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   '& .MuiButtonGroup-grouped': {
     border: 'none',
     '&:not(:last-of-type)': {
-      borderRight: '1px solid rgba(255, 255, 255, 0.2)',
+      borderRight: '1px solid #117B15E',
     },
   },
 }));
 
 const StyledButton = styled(Button)(({ theme, active }) => ({
-    backgroundColor: active ? '#1976d2' : 'rgb(34,39,91)',
+    backgroundColor: active ? '#117B15E' : '#242424',
     color: 'white',
     fontSize: '0.875rem',
     padding: '3px 8px', // Reduced padding
     '&:hover': {
-      backgroundColor: active ? '#1565c0' : 'rgb(34,39,91)',
+      backgroundColor: active ? '#117B15E' : '#242424',
     },
     '&.random': {
-      backgroundColor: 'rgb(34,39,91)',
-     
+      backgroundColor: '#117B15E',
+      border: "1px solid #D23838",
+      borderRadius:"10px",
+     color:"#D23838",
       paddingLeft: '10px', // Reduced padding
-      paddingRight: '10px', // Reduced padding
+      paddingRight: '10px', 
+      gap:2,// Reduced padding
       '&:hover': {
-        backgroundColor: 'rgb(34,39,91)',
+        backgroundColor: '#117B15E',
       },
     },
   }));
@@ -125,7 +128,9 @@ const Head = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [betAmount, setBetAmount] = useState(1);
   const [multiplier, setMultiplier] = useState(1);
+  const [error, setError] = useState(null);
   const [totalBet, setTotalBet] = useState(0);
+  const [wallet, setWallet] = useState(0);
   const [betPlaced, setBetPlaced] = useState(false);
   const [betPeriodId, setBetPeriodId] = useState(null);
   const [ lastAlertedPeriodId, setLastAlertedPeriodId ] = useState(null);
@@ -134,20 +139,20 @@ const Head = () => {
   const [gameResult, setGameResult] = useState("");
   const [value, setValue] = useState(0);
   const [bets, setBets] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("RGB(71,129,255)");
+  const [selectedColor, setSelectedColor] = useState("#242424");
   const [winloss, setWinLoss] = useState(0);
   const [popupperiod, setPopupPeriod] = useState(0);
   const [popupresult, setPopupResult] = useState(0);
   const [popupperiodid, setPopupPeriodId] = useState(0);
   const [popupTimer, setPopupTimer] = useState(0);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+  const timeParts = (remainingTime || '00:00').split(':');
+  const minutes = timeParts[0] || '00';
+  const seconds = timeParts[1] || '00';
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
-
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
@@ -158,7 +163,7 @@ const Head = () => {
         const response = await axios.get(`${domain}/user`, {
           withCredentials: true,
         });
-        setUser(response.data.user);
+        setUser(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -391,11 +396,12 @@ setLastAlertedPeriodId(periodId);
     }
   }, [remainingTime, isSoundOn]);
 
+
   const handleEventSelection = (event) => {
 
     switch (event) {
       case "violet":
-        setSelectedColor("RGB(182,89,254)");
+        setSelectedColor("#9B48DB");
         break;
       case "green":
         setSelectedColor("RGB(64,173,114)");
@@ -459,7 +465,9 @@ useEffect(() => {
       );
       setBets(response.data);
       let latestBet = response.data[0];
- 
+      console.log(latestBet.periodId)
+      console.log(lastAlertedPeriodId)
+      
       if (latestBet.periodId == lastAlertedPeriodId) {
         console.log( "Latest bet periodId is the same as the last alerted periodId"); 
           if (latestBet.status === "Failed") {
@@ -498,7 +506,17 @@ useEffect(() => {
   return () => clearInterval(intervalId);
 }, [periodId, lastAlertedPeriodId]);
 
-
+useEffect(() => {
+  axios
+    .get("user-balance", { withCredentials: true })
+    .then((response) => {
+      setWallet(response.data.walletAmount);
+    })
+    .catch((error) => {
+      console.error("Error fetching Wallet:", error);
+      setError("Error fetching Wallet");
+    });
+}, []);
 
 
 
@@ -528,6 +546,7 @@ useEffect(() => {
   return (
     <div>
       <Mobile>
+        <div style={{backgroundColor:"#242424"}}>
         <Grid
           container
           alignItems="center"
@@ -536,7 +555,7 @@ useEffect(() => {
             position: "sticky",
             top: 0,
             zIndex: 1000,
-            backgroundColor: "rgb(34,39,91)",
+            backgroundColor: "#3F3F3F",
             padding: "8px 16px",
             color: "white",
           }}
@@ -562,20 +581,24 @@ useEffect(() => {
           direction="column"
           sx={{
             height: "300px",
-            backgroundColor: "rgb(34,39,91)",
+            backgroundColor: "#333332",
             borderRadius: "0 0 70px 70px",
             textAlign: "center",
           }}
         >
           <Grid
-            sx={{
-              backgroundColor: "rgb(62,93,174)",
-              margin: "0 20px 20px 20px",
-              borderRadius: "30px",
-              padding: "10px",
-              marginTop: "10px",
-            }}
-          >
+  sx={{
+    backgroundImage: `url("games/assets/walletbg-dcbd4124.png")`,
+    backgroundSize: "cover",
+    backgroundColor:"#4D4D4C",
+    backgroundPosition: "center",
+    margin: "0 20px 20px 20px",
+    borderRadius: "30px",
+    padding: "10px",
+    marginTop: "10px",
+  }}
+>
+           
             <Grid
               sm={12}
               item
@@ -587,7 +610,7 @@ useEffect(() => {
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                {user ? user.walletAmount : " Loading"}
+                {wallet ? wallet : " Loading"}
               </Typography>
               <IconButton sx={{color:"white"}}>
                 <Refresh />
@@ -605,7 +628,7 @@ useEffect(() => {
               }}
             >
               <AccountBalanceWallet
-                sx={{ marginRight: "10px", color: "RGB(71,129,255)" }}
+                sx={{ marginRight: "10px", color: "#D9AC4F" }}
               />
               <Typography variant="subtitle2">Wallet Balance</Typography>
             </Grid>
@@ -626,7 +649,8 @@ useEffect(() => {
                 sx={{
                   marginLeft: "10px",
                   color: "white",
-                  borderColor: "white",
+                  backgroundColor:"#D23838",
+                  borderColor: "#D23838",
                   borderRadius: "50px",
                 }}
               >
@@ -638,7 +662,7 @@ useEffect(() => {
                 fullWidth
                 sx={{
                   marginLeft: "10px",
-                  backgroundColor: "RGB(71,129,255)",
+                  backgroundColor: "#17B15E",
                   borderRadius: "50px",
                 }}
               >
@@ -650,7 +674,7 @@ useEffect(() => {
           <Grid
             item
             sx={{
-              backgroundColor: "rgb(62,93,174)",
+              backgroundColor: "#333332",
               margin: "0 20px 20px 20px",
               borderRadius: "3px",
               padding: "10px",
@@ -660,7 +684,7 @@ useEffect(() => {
             }}
           >
             <IconButton>
-              <VolumeUp sx={{ color: "RGB(71,129,255)" }} />
+              <VolumeUp sx={{ color: "#DEBA6D" }} />
             </IconButton>
             <CSSTransition
               in={inProp}
@@ -677,11 +701,12 @@ useEffect(() => {
               variant="contained"
               size="small"
               sx={{
-                backgroundColor: "RGB(71,129,255)",
+                backgroundColor: "#DEBA6D",
                 borderRadius: "50px",
                 fontSize: "9px",
                 paddingLeft: "12px",
                 paddingRight: "12px",
+                color:"#221F2E"
               }}
               startIcon={<WhatshotIcon />}
             >
@@ -699,7 +724,7 @@ useEffect(() => {
             maxWidth: "95%",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             marginTop: "-50px",
-            backgroundColor: "rgb(42,50,112)",
+            backgroundColor: "#4D4D4C",
             borderRadius: "30px",
             color:"white"
           }}
@@ -713,9 +738,9 @@ useEffect(() => {
               style={{
                 cursor: "pointer",
                 border:
-                  activeId === image.id ? "1px solid rgb(65,101,188)" : "none",
+                  activeId === image.id ? "1px solid #DAB465" : "none",
                 backgroundColor:
-                  activeId === image.id ? "rgb(65,101,188)" : "transparent",
+                  activeId === image.id ? "#DAB465" : "transparent",
                 borderRadius: "10px",
                 display: "flex",
                 flexDirection: "column",
@@ -742,7 +767,7 @@ useEffect(() => {
             marginRight: "auto",
             maxWidth: "95%",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundImage: 'url("games/assets/diban-ad1641e9.png")',
+            backgroundImage: 'url("games/assets/wingoissue-ba51f474.png")',
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -761,13 +786,12 @@ useEffect(() => {
                 variant="outlined"
                 size="small"
                 sx={{
-                  color: "white",
-                  borderColor: "white",
+                  color: "#A85206",
+                  borderColor: "#A85206",
                   borderRadius: "20px",
                 }}
                 startIcon={<NoteIcon />}
                 onClick={handleOpenPopup}
-
               >
                 How To Play
               </Button>
@@ -776,7 +800,7 @@ useEffect(() => {
             <Grid item>
               <Typography
                 variant="caption"
-                sx={{ color: "white" }}
+                sx={{ color: "#8F5206" }}
               >{`Win Go ${selectedTimer}`}</Typography>
             </Grid>
             <Grid
@@ -813,17 +837,29 @@ useEffect(() => {
             }}
           >
             <Grid item>
-              <Typography variant="caption" sx={{ color: "white" }}>
+              <Typography variant="caption" sx={{ color: "#A85206" }}>
                 Seconds Remaining
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h5" sx={{ color: "white" }}>
-                {remainingTime}
-              </Typography>
+            <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'inline-block', width: '16px', height: '22px',marginTop: '8px', backgroundColor: "#242424", color: "white", textAlign: 'center', lineHeight: '20px', margin: '0 2px', borderRadius: '4px', border: '1px solid #242424' }}>
+        {minutes[0]}
+      </Box>
+      <Box sx={{ display: 'inline-block', width: '16px', height: '22px',marginTop: '8px', backgroundColor:"#242424", color: "white", textAlign: 'center', lineHeight: '20px', margin: '0 2px', borderRadius: '4px', border: '1px solid #242424' }}>
+        {minutes[1]}
+      </Box>
+      <Box sx={{ display: 'inline-block', width: '16px', height: '22px', backgroundColor: "#242424",marginTop: '8px', color: "white", textAlign: 'center', lineHeight: '20px', margin: '0 2px', borderRadius: '4px', border: '1px solid #242424' }}>:</Box>
+      <Box sx={{ display: 'inline-block', width: '16px', height: '22px', backgroundColor: "#242424",marginTop: '8px', color: "white", textAlign: 'center', lineHeight: '20px', margin: '0 2px', borderRadius: '4px', border: '1px solid #242424' }}>
+        {seconds[0]}
+      </Box>
+      <Box sx={{ display: 'inline-block', width: '16px', height: '22px', backgroundColor: "#242424", color: "white",marginTop: '8px', textAlign: 'center', lineHeight: '20px', margin: '0 2px', borderRadius: '4px', border: '1px solid #242424' }}>
+        {seconds[1]}
+      </Box>
+    </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h6" sx={{ color: "white" }}>
+              <Typography variant="h6" sx={{ color: "#A85206" }}>
                 {periodId ? periodId.toString().slice(0, -2) : ""}
               </Typography>
             </Grid>
@@ -835,12 +871,12 @@ useEffect(() => {
           mt={2}
           spacing={2}
           sx={{
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            boxShadow: "0px 4px 8px #242424",
             marginLeft: "auto",
             marginRight: "auto",
             maxWidth: "95%",
             borderRadius: "20px",
-            backgroundColor:"rgb(42,50,112)"
+            backgroundColor:"#333332"
           }}
         >
           {/* First Row */}
@@ -866,10 +902,10 @@ useEffect(() => {
               }}
               variant="contained"
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "#9B48DB",
                 width: "100px",
                 borderRadius: "10px",
-                color:"black"
+                color:"white"
               }}
             >
               Violet
@@ -894,7 +930,7 @@ useEffect(() => {
             container
             mt={2}
             sx={{
-              backgroundColor: "rgb(50,58,124)",
+              backgroundColor: "#242424",
               marginLeft: "auto",
               marginRight: "auto",
               maxWidth: "95%",
@@ -1330,7 +1366,7 @@ useEffect(() => {
                 textAlign: "center",
                 fontSize: "120px",
                 fontWeight: "bold",
-                color: " RGB(71,129,255)",
+                color: "#D9AC4F",
               }}
             >
               {remainingTime ? remainingTime.split(":")[1] : ""}
@@ -1338,7 +1374,7 @@ useEffect(() => {
           </DialogContent>
         </Dialog>
 
-        <Grid mt={2} sx={{ marginBottom: "100px" }}>
+        <Grid mt={2}>
         <Tabs
     value={value}
     onChange={handleChange}
@@ -1352,11 +1388,11 @@ useEffect(() => {
       style={
         value === 0
           ? {
-              backgroundColor: "RGB(71,129,255)",
-              color: "white",
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
               borderRadius: "20px",
             }
-          : { color: "white" }
+          : { color: "##A8A5A1",backgroundColor:"#333332" }
       }
     />
     <Tab
@@ -1364,11 +1400,11 @@ useEffect(() => {
       style={
         value === 1
           ? {
-              backgroundColor: "RGB(71,129,255)",
-              color: "white",
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
               borderRadius: "20px",
             }
-          : { color: "white" }
+          : { color: "#A8A5A1",backgroundColor:"#333332" }
       }
     />
     <Tab
@@ -1376,11 +1412,11 @@ useEffect(() => {
       style={
         value === 2
           ? {
-              backgroundColor: "RGB(71,129,255)",
-              color: "white",
+              backgroundColor: "#F6DF98",
+              color: "#B66E06",
               borderRadius: "20px",
             }
-          : { color: "white" }
+          : { color: "#A8A5A1",backgroundColor:"#333332" }
       }
     />
   </Tabs>
@@ -1400,7 +1436,7 @@ useEffect(() => {
                     : 0
                 )
                 .map((bet, index) => (
-                  <Accordion sx={{backgroundColor:"rgb(42,50,112)"}}>
+                  <Accordion sx={{backgroundColor:"#333332"}}>
                     <AccordionSummary
                       aria-controls="panel1a-content"
                       id="panel1a-header"
@@ -1409,7 +1445,7 @@ useEffect(() => {
                       <Grid
                         container
                         style={{
-                          backgroundColor: "rgb(34,39,91)",
+                          backgroundColor: "#242424",
                           marginTop: "10px",
                           padding: "18px",
                           width: "350px",
@@ -1687,7 +1723,7 @@ useEffect(() => {
           </div>
         </>
 
-        
+        </div>
       </Mobile>
     </div>
   );

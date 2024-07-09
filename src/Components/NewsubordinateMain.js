@@ -79,8 +79,9 @@ const filteredSubordinatesData = subordinatesData.filter((subordinate) => {
           flexDirection="column"
           height="calc(var(--vh, 1vh) * 100)"
           position="relative"
+          backgroundColor="#242424"
         >
-          <Box flexGrow={1} sx={{backgroundColor: 'rgb(34,39,91)'}}>
+          <Box flexGrow={1} sx={{backgroundColor: '#3F3F3F'}}>
 
 
             
@@ -92,7 +93,7 @@ const filteredSubordinatesData = subordinatesData.filter((subordinate) => {
     position: 'sticky',
     top: 0,
     zIndex: 1000,
-    backgroundColor: 'Rgb(55,72,146)',
+    backgroundColor: '#242424',
     padding: isSmallScreen ? '8px' : '8px 16px',
     color: 'white'
   }}
@@ -111,16 +112,19 @@ const filteredSubordinatesData = subordinatesData.filter((subordinate) => {
 </Grid>
 
 
-<ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{margin: 1, display: isSmallScreen ? 'block' : 'flex', justifyContent: 'center'}}>
-  <Button onClick={() => setFilter('today')}>Today</Button>
-  <Button onClick={() => setFilter('thisWeek')}>This Week</Button>
-  <Button onClick={() => setFilter('thisMonth')}>This Month</Button>
+<ButtonGroup variant="contained" backgroundColor= '#242424' sx={{margin: 1, display: isSmallScreen ? 'block' : 'flex', justifyContent: 'center'}}>
+  <Button style={{color:"#333332",
+                  backgroundColor:"#D9AC4F"}}onClick={() => setFilter('today')}>Today</Button>
+  <Button style={{color:"#333332",
+                  backgroundColor:"#D9AC4F"}}onClick={() => setFilter('thisWeek')}>This Week</Button>
+  <Button style={{color:"#333332",
+                  backgroundColor:"#D9AC4F"}}onClick={() => setFilter('thisMonth')}>This Month</Button>
 </ButtonGroup>
 
 
 {filteredSubordinatesData.map((subordinate, index) => (
   <Box key={index} m={isSmallScreen ? 1 : 2} borderRadius={2}>
-    <Card sx={{backgroundColor:"rgb(54,72,146)",color:"white"}}>
+    <Card sx={{backgroundColor:"#333332",color:"white"}}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={6} sm={6}>

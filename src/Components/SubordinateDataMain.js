@@ -65,6 +65,7 @@ const SubordinateDataMain = ({ children }) => {
           flexDirection="column"
           height="calc(var(--vh, 1vh) * 100)"
           position="relative"
+          backgroundColor="#242424"
         >
           <Box flexGrow={1}>
             <Grid
@@ -75,7 +76,7 @@ const SubordinateDataMain = ({ children }) => {
                 position: "sticky",
                 top: 0,
                 zIndex: 1000,
-                backgroundColor: "rgb(42,50,112)",
+                backgroundColor: "#3F3F3F",
                 padding: "8px 16px",
                 color: "white",
               }}
@@ -103,7 +104,7 @@ const SubordinateDataMain = ({ children }) => {
     style={{
       width: '100%',
       border: '1px solid white',
-      backgroundColor: 'transparent',
+      backgroundColor: '#333332',
       color: 'white',
       outline: 'none',
       padding: '10px',
@@ -115,7 +116,8 @@ const SubordinateDataMain = ({ children }) => {
                 <Button
                   variant="contained"
                   sx={{ height: "40px" }}
-                  color="primary"
+                  style={{color:"#333332",
+                  backgroundColor:"#D9AC4F"}}
                   onClick={() => setSearchTerm("")}
                   fullWidth
                 >
@@ -131,7 +133,7 @@ const SubordinateDataMain = ({ children }) => {
     style={{
       width: '100%',
       border: '1px solid white',
-      backgroundColor: 'transparent',
+      backgroundColor: '#333332',
       color: 'white',
       outline: 'none',
       padding: '10px',
@@ -146,7 +148,7 @@ const SubordinateDataMain = ({ children }) => {
     style={{
       width: '100%',
       border: '1px solid white',
-      backgroundColor: 'transparent',
+      backgroundColor: '#333332',
       color: 'white',
       outline: 'none',
       padding: '10px',
